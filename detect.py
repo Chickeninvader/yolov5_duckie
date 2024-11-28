@@ -132,7 +132,7 @@ def run(
         hide_conf (bool): If True, do not display confidence scores on bounding boxes. Default is False.
         half (bool): If True, use FP16 half-precision inference. Default is False.
         dnn (bool): If True, use OpenCV DNN backend for ONNX inference. Default is False.
-        vid_stride (int): Stride for processing video frames, to skip frames between processing. Default is 1.
+        vid_stride (int): Stride for processing video images, to skip images between processing. Default is 1.
 
     Returns:
         None
@@ -352,8 +352,8 @@ def parse_opt():
         --hide-conf (bool, optional): Flag to hide confidences in the output. Defaults to False.
         --half (bool, optional): Flag to use FP16 half-precision inference. Defaults to False.
         --dnn (bool, optional): Flag to use OpenCV DNN for ONNX inference. Defaults to False.
-        --vid-stride (int, optional): Video frame-rate stride, determining the number of frames to skip in between
-            consecutive frames. Defaults to 1.
+        --vid-stride (int, optional): Video frame-rate stride, determining the number of images to skip in between
+            consecutive images. Defaults to 1.
 
     Returns:
         argparse.Namespace: Parsed command-line arguments as an argparse.Namespace object.

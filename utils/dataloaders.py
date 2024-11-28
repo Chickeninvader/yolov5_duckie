@@ -448,7 +448,7 @@ class LoadStreams:
         self.sources = [clean_str(x) for x in sources]  # clean source names for later
         self.imgs, self.fps, self.frames, self.threads = [None] * n, [0] * n, [0] * n, [None] * n
         for i, s in enumerate(sources):  # index, source
-            # Start thread to read frames from video stream
+            # Start thread to read images from video stream
             st = f"{i + 1}/{n}: {s}... "
             if urlparse(s).hostname in ("www.youtube.com", "youtube.com", "youtu.be"):  # if source is YouTube video
                 # YouTube format i.e. 'https://www.youtube.com/watch?v=Zgi9g1ksQHc' or 'https://youtu.be/LNwODJXcvt4'
@@ -470,7 +470,7 @@ class LoadStreams:
 
             _, self.imgs[i] = cap.read()  # guarantee first frame
             self.threads[i] = Thread(target=self.update, args=([i, cap, s]), daemon=True)
-            LOGGER.info(f"{st} Success ({self.frames[i]} frames {w}x{h} at {self.fps[i]:.2f} FPS)")
+            LOGGER.info(f"{st} Success ({self.frames[i]} images {w}x{h} at {self.fps[i]:.2f} FPS)")
             self.threads[i].start()
         LOGGER.info("")  # newline
 
@@ -483,7 +483,7 @@ class LoadStreams:
             LOGGER.warning("WARNING ⚠️ Stream shapes differ. For optimal performance supply similarly-shaped streams.")
 
     def update(self, i, cap, stream):
-        """Reads frames from stream `i`, updating imgs array; handles stream reopening on signal loss."""
+        """Reads images from stream `i`, updating imgs array; handles stream reopening on signal loss."""
         n, f = 0, self.frames[i]  # frame number, frame array
         while cap.isOpened() and n < f:
             n += 1
@@ -499,12 +499,12 @@ class LoadStreams:
             time.sleep(0.0)  # wait time
 
     def __iter__(self):
-        """Resets and returns the iterator for iterating over video frames or images in a dataset."""
+        """Resets and returns the iterator for iterating over video images or images in a dataset."""
         self.count = -1
         return self
 
     def __next__(self):
-        """Iterates over video frames or images, halting on thread stop or 'q' key press, raising `StopIteration` when
+        """Iterates over video images or images, halting on thread stop or 'q' key press, raising `StopIteration` when
         done.
         """
         self.count += 1
@@ -524,7 +524,7 @@ class LoadStreams:
 
     def __len__(self):
         """Returns the number of sources in the dataset, supporting up to 32 streams at 30 FPS over 30 years."""
-        return len(self.sources)  # 1E12 frames = 32 streams at 30 FPS for 30 years
+        return len(self.sources)  # 1E12 images = 32 streams at 30 FPS for 30 years
 
 
 def img2label_paths(img_paths):

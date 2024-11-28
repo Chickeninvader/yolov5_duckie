@@ -1,0 +1,15 @@
+path: ../dataset/merged_dataset
+train: train/images
+val: valid/images
+
+nc: 8
+#names: ['duckie', 'duckiebot', 'intersection_sign', 'cone', 'QR_code', 'traffic_light', 'stop_sign', 'signal_sign']
+names:
+  0: duckie
+  1: duckiebot
+  2: intersection_sign
+  3: cone
+  4: QR_code
+  5: traffic_light
+  6: stop_sign
+  7: signal_sign
